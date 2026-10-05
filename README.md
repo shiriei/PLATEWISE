@@ -1,102 +1,69 @@
-# PlateWise
+# PlateWise 🍽️
 
-PlateWise is an AI-powered personalized meal planner built with a modern, brutalist aesthetic.
+> **Your plate. Your rules.**
 
-## Features
+PlateWise is a small AI-powered personalized meal planner that creates meal suggestions based on a user's dietary preferences, fitness goals, allergies, disliked foods, and optional calorie targets.
+
+It uses **Google Gemini** to generate personalized meal plans and a deterministic backend allergy checker to validate generated ingredients before they are shown to the user.
+
+## ✨ Features
 
 - Personalized meal planning
-- Dietary preferences
-- Fitness goals
+- Dietary preference support
+- Fitness goal customization
 - Allergy-aware meal generation
 - Disliked food preferences
-- Gemini-powered recommendations
-- Local SQLite profile storage
+- Optional daily calorie target
+- AI-generated meal suggestions using Google Gemini
+- Backend allergy validation
+- SQLite profile storage
+- Simple, responsive editorial/brutalist UI
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-**Frontend:**
+### Frontend
+
 - React
 - Vite
 - TypeScript
 - Tailwind CSS
 
-**Backend:**
-- FastAPI
+### Backend
+
 - Python
+- FastAPI
 - SQLite
+- Pydantic
 
-**AI:**
+### AI
+
 - Google Gemini API
+- `google-genai` Python SDK
 
-## Architecture
+## 🏗️ Architecture
 
-React -> FastAPI -> SQLite + Profile -> Gemini API -> Allergy Checker -> Meal Plan
-
-## Setup
-
-### Backend Environment Setup
-
-Create `backend/.env` with your Gemini API key and preferred model:
-
-```env
-GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-2.5-flash
-```
-
-**⚠️ IMPORTANT:** Do NOT commit your `.env` file to version control. It is currently ignored in `.gitignore`.
-
-### Start the Backend
-
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-2. Create and activate a virtual environment (Windows):
-   ```bash
-   python -m venv venv
-   .\venv\Scripts\Activate.ps1
-   ```
-3. Install dependencies:
-   ```bash
-   pip install fastapi uvicorn sqlalchemy httpx pytest python-dotenv google-genai
-   ```
-4. Start the backend server:
-   ```bash
-   uvicorn main:app --reload
-   ```
-
-### Start the Frontend
-
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-## Important Safety Note
-
-PlateWise provides AI-generated meal suggestions and is not a substitute for professional medical or dietary advice. Users with serious food allergies should independently verify ingredients and food preparation.
-
-## Project Structure
-
-```
-platewise/
-├── backend/
-│   ├── database/
-│   ├── models/
-│   ├── schemas/
-│   ├── services/
-│   └── tests/
-├── frontend/
-│   ├── public/
-│   └── src/
-│       └── components/
-└── README.md
-```
+```text
+┌──────────────────────┐
+│    React Frontend    │
+│   Vite + TypeScript  │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│    FastAPI Backend   │
+└──────────┬───────────┘
+           │
+     ┌─────┴─────┐
+     ▼           ▼
+┌─────────┐  ┌─────────────────┐
+│ SQLite  │  │  Gemini API     │
+│ Profile │  │ Meal Generation │
+└─────────┘  └────────┬────────┘
+                      │
+                      ▼
+             ┌─────────────────┐
+             │ Allergy Checker │
+             └────────┬────────┘
+                      │
+                      ▼
+                Final Meal Plan
